@@ -123,11 +123,14 @@ class element:
             raise DeprecationError( self.tag )
 
 class page:
-    """This is our main class representing a document. Elements are added
-    as attributes of an instance of this class."""
+    """
+    This is our main class representing a document. Elements are added
+    as attributes of an instance of this class.
+    """
 
     def __init__( self, mode='strict_html', case='lower', onetags=None, twotags=None, separator='\n', class_=None ):
-        """Stuff that effects the whole document.
+        """
+        Stuff that effects the whole document.
 
         mode -- 'strict_html'   for HTML 4.01 (default)
                 'html'          alias for 'strict_html'
@@ -146,7 +149,8 @@ class page:
         
         separator --            string to place between added elements, defaults to newline
         
-        class_ --               a class that will be added to every element if defined"""
+        class_ --               a class that will be added to every element if defined
+        """
         
         valid_onetags = [ "AREA", "BASE", "BR", "COL", "FRAME", "HR", "IMG", "INPUT", "LINK", "META", "PARAM" ]
         valid_twotags = [ "A", "ABBR", "ACRONYM", "ADDRESS", "B", "BDO", "BIG", "BLOCKQUOTE", "BODY", "BUTTON",

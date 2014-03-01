@@ -19,3 +19,7 @@ class MongoConnect(object):
     def conectDatabase(self, databaseName):
         self.database = self.client.databasename
         return self.database
+
+    def showAllDatabases(self):
+        databases = show dbs
+	#hmmm

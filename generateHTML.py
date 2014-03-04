@@ -274,7 +274,7 @@ class ParseSVNLog(object):
         if svnFilePath is not None:
             file = self.openFileFromURL(svnFilePath)
         else:
-            file = open("svn_log.txt","r")
+            file = open("svn_log.txt","r") # The file containing the output of "svn log"
 
         # Initialize the counters and objects
         counter         = 0
@@ -302,8 +302,7 @@ class ParseSVNLog(object):
                         logObjectCopy = copy.deepcopy(logObject)
                         revisionArray.append(logObjectCopy)
                         logObjectDict[pbStory] = revisionArray
-                        #logObjectDict[pbStory][0].getUserName()
-
+                        
                     else:
                         logObjectArray = []
                         logObjectCopy = copy.deepcopy(logObject)

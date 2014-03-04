@@ -302,7 +302,7 @@ class ParseSVNLog(object):
                         logObjectCopy = copy.deepcopy(logObject)
                         revisionArray.append(logObjectCopy)
                         logObjectDict[pbStory] = revisionArray
-                        
+
                     else:
                         logObjectArray = []
                         logObjectCopy = copy.deepcopy(logObject)

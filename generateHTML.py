@@ -9,6 +9,8 @@ import copy
 
 try:
     import markup
+    import mongo
+
 except:
     print __doc__
     sys.exit( 1 )

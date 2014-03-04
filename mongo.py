@@ -10,16 +10,48 @@ class MongoConnect(object):
     """
 
     SERVER = "localhost"
-    PORT   = "27017"
+    PORT   = 27017
 
-    def __init__(self, **kwargs):
-        self.client = MongoClient()
-        self.client = MongoClient(self.SERVER, self.PORT)
+    #def __init__(self, **kwargs):
+    #    self.conn = MongoClient()
+    #    self.conn = MongoClient(self.SERVER, self.PORT)
 
-    def conectDatabase(self, databaseName):
-        self.database = self.client.databasename
-        return self.database
+    def connect(self):
 
-    def showAllDatabases(self):
-        databases = show dbs
-	#hmmm
+        conn = None
+        # Connection to Mongo DB
+        try:
+            conn=pymongo.MongoClient(self.SERVER, self.PORT)
+            print "Connected successfully!!!"
+        except pymongo.errors.ConnectionFailure, e:
+            print "Could not connect to MongoDB: %s" % e
+
+        if conn is not None:
+            return conn
+        else:
+            return False
+
+    def conectDatabase(self, mongoConnection, databaseName):
+        self.db = mongoConnection[databaseName]
+        return self.db
+
+    def showAllDatabases(self, mongoConnection):
+        return mongoConnection.database_names()
+
+    def getCollection(self, database):
+        return database.my_collection
+
+    def showAllCollections(self, database):
+        return database.collection_names()
+
+test = MongoConnect()
+mongoConnection = test.connect()
+
+db = test.conectDatabase(mongoConnection, "sumit")
+collection = test.getCollection(db)
+doc = {"name":"Alberto","surname":"Negron","twitter":"@Altons"}
+collection.insert(doc)
+
+print test.showAllDatabases(mongoConnection)
+print test.showAllCollections(db)
+

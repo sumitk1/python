@@ -49,9 +49,22 @@ mongoConnection = test.connect()
 
 db = test.conectDatabase(mongoConnection, "sumit")
 collection = test.getCollection(db)
-doc = {"name":"Alberto","surname":"Negron","twitter":"@Altons"}
+doc = {"name":"sumit","surname":[{"name":"ssss"},{"twitter":"@Altons"}]}
 collection.insert(doc)
 
 print test.showAllDatabases(mongoConnection)
 print test.showAllCollections(db)
+
+#cursor = db.collection.find({'name': {'$regex': 's'}})
+#for collection1 in db.collection_names():
+    #print collection1.find({"name":"sumit"})
+
+cursor = collection.find({"name":{"$regex":"sum"}})
+print cursor.count()
+#print cursor.__getitem__(0)
+for result_object in cursor:
+    print "hello"
+    print result_object['_id']
+
+
 

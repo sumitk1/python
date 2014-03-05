@@ -21,13 +21,13 @@ class MongoConnect(object):
         conn = None
         # Connection to Mongo DB
         try:
-            conn=pymongo.MongoClient(self.SERVER, self.PORT)
+            self.conn=pymongo.MongoClient(self.SERVER, self.PORT)
             print "Connected successfully!!!"
         except pymongo.errors.ConnectionFailure, e:
             print "Could not connect to MongoDB: %s" % e
 
-        if conn is not None:
-            return conn
+        if self.conn is not None:
+            return self.conn
         else:
             return False
 
@@ -43,6 +43,9 @@ class MongoConnect(object):
 
     def showAllCollections(self, database):
         return database.collection_names()
+
+    def insertCollectionToDB(self, database, collection, document):
+
 
 test = MongoConnect()
 mongoConnection = test.connect()

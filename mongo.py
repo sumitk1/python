@@ -12,13 +12,20 @@ class MongoConnect(object):
     SERVER = "localhost"
     PORT   = 27017
 
-    #def __init__(self, **kwargs):
-    #    self.conn = MongoClient()
-    #    self.conn = MongoClient(self.SERVER, self.PORT)
+    def __init__(self, **kwargs):
+
+        if kwargs.get('server') is not None:
+            self.SERVER = kwargs.get('server')
+
+        if kwargs.get('port') is not None:
+            self.PORT = kwargs.get('port')
+        try:
+            self.conn = MongoClient(self.SERVER, self.PORT)
+        except pymongo.errors.ConnectionFailure, e:
+            print "Could not connect to MongoDB: %s" % e
 
     def connect(self):
 
-        conn = None
         # Connection to Mongo DB
         try:
             self.conn=pymongo.MongoClient(self.SERVER, self.PORT)
@@ -31,43 +38,49 @@ class MongoConnect(object):
         else:
             return False
 
-    def conectDatabase(self, mongoConnection, databaseName):
-        self.db = mongoConnection[databaseName]
+    def conectDatabase(self, databaseName):
+        self.db = self.conn[databaseName]
         return self.db
 
-    def showAllDatabases(self, mongoConnection):
-        return mongoConnection.database_names()
+    def showAllDatabases(self):
+        return self.conn.database_names()
 
-    def getCollection(self, database):
-        return database.my_collection
+    def getCollection(self):
+        self.collection = self.db.my_collection
+        return self.collection
 
-    def showAllCollections(self, database):
-        return database.collection_names()
+    def showAllCollections(self):
+        return self.db.collection_names()
 
-    def insertCollectionToDB(self, database, collection, document):
-
+    def insertDocumentToCollection(self, document):
+        self.collection.insert(document)
 
 test = MongoConnect()
-mongoConnection = test.connect()
 
-db = test.conectDatabase(mongoConnection, "sumit")
-collection = test.getCollection(db)
-doc = {"name":"sumit","surname":[{"name":"ssss"},{"twitter":"@Altons"}]}
-collection.insert(doc)
+# mongoConnection = test.connect()
 
-print test.showAllDatabases(mongoConnection)
-print test.showAllCollections(db)
+print test.conectDatabase("kumar")
+print test.showAllDatabases()
+print test.getCollection()
+print test.collection
+
+# collection = test.getCollection(db)
+# doc = {"name":"sumit","surname":[{"name":"ssss"},{"twitter":"@Altons"}]}
+# collection.insert(doc)
+#
+# print test.showAllDatabases(mongoConnection)
+# print test.showAllCollections(db)
 
 #cursor = db.collection.find({'name': {'$regex': 's'}})
 #for collection1 in db.collection_names():
     #print collection1.find({"name":"sumit"})
 
-cursor = collection.find({"name":{"$regex":"sum"}})
-print cursor.count()
-#print cursor.__getitem__(0)
-for result_object in cursor:
-    print "hello"
-    print result_object['_id']
-
+# cursor = collection.find({"name":{"$regex":"sum"}})
+# print cursor.count()
+# print cursor.__getitem__(0)
+# for result_object in cursor:
+#     print "hello"
+#     print result_object['_id']
+#
 
 

@@ -59,10 +59,14 @@ test = MongoConnect()
 
 # mongoConnection = test.connect()
 
-print test.conectDatabase("kumar")
+print test.conectDatabase("sumit")
 print test.showAllDatabases()
 print test.getCollection()
-print test.collection
+cursor = test.collection.find({'name': {'$regex': 's'}})
+print cursor.count()
+print cursor.__getitem__(0)
+    
+
 
 # collection = test.getCollection(db)
 # doc = {"name":"sumit","surname":[{"name":"ssss"},{"twitter":"@Altons"}]}

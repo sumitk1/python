@@ -59,13 +59,13 @@ test = MongoConnect()
 
 # mongoConnection = test.connect()
 
-print test.conectDatabase("sumit")
-print test.showAllDatabases()
-print test.getCollection()
+test.conectDatabase("sumit")
+allDbs = test.showAllDatabases()
+collection = test.getCollection()
 cursor = test.collection.find({'name': {'$regex': 's'}})
 print cursor.count()
 print cursor.__getitem__(0)
-    
+
 
 
 # collection = test.getCollection(db)

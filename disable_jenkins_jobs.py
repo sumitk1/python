@@ -1,8 +1,12 @@
 
 '''
 @author: sumit
+This script will disable all Jenkins jobs present in the Jenkins home directory.
+For this it become active we do need to reload all configuration from disk once the script has run.
+To reload configuration go to Jenkins -> Manage Jenkins -> Reload Configuration from Disk
+OR
+Restart Jenkins
 '''
-
 import os
 from subprocess import *
 
